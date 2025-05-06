@@ -137,7 +137,7 @@ default_message() ->
             #{
                 % Routes for the genesis-wasm device to use a local CU, if requested.
                 <<"template">> => <<"/result/.*">>,
-                <<"node">> => #{ <<"prefix">> => <<"http://localhost:6363">> }
+                <<"node">> => #{ <<"prefix">> => <<"http://cu:6363">> }
             },
             #{
                 % Routes for GraphQL requests to use a remote GraphQL API.

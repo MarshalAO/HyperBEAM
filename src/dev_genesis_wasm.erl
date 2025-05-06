@@ -71,7 +71,7 @@ ensure_started(Opts) ->
                         ?event({genesis_wasm_booting, {pid, self()}}),
                         % Create genesis_wasm cache dir, if it does not exist.
                         NodeURL =
-                            "http://localhost:" ++
+                            "http://cu:" ++
                             integer_to_list(hb_opts:get(port, no_port, Opts)),
                         DBDir =
                             filename:absname(
@@ -207,7 +207,7 @@ status(Opts) ->
                 Opts
             )
         ),
-    try hb_http:get(<<"http://localhost:", ServerPort/binary, "/status">>, Opts) of
+    try hb_http:get(<<"http://cu:", ServerPort/binary, "/status">>, Opts) of
         {ok, Res} ->
             ?event({genesis_wasm_status_check, {res, Res}}),
             true;
