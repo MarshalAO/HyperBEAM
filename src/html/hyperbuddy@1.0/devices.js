@@ -77,8 +77,19 @@ function renderInfoGroups(groups, devicesStr) {
   // Make sure it has the right class
   container.className = "device-cards-container";
   
-  for (const [key, device] of Object.entries(devices)) {
-    if(key == "device") continue;
+  const [_, defaultDeviceHeader] = ['Marshal Custom Devices', 'Default Devices'].map(header => {
+    const div = document.createElement("div");
+    div.classList.add("device-header");
+    const h2 = document.createElement("h2");
+    h2.innerText = header;
+    div.appendChild(h2);
+    container.appendChild(div);
+    return div;
+  })
+
+  delete devices.device;
+
+  for (const [key, device] of Object.entries(devices).sort(([_, a], [__, b]) => a.name.localeCompare(b.name))) {
     const [name, variant] = device.name.split("@");
     
     // Create a card for each device
@@ -111,7 +122,11 @@ function renderInfoGroups(groups, devicesStr) {
     card.appendChild(deviceVariant);
     
     // Add card to container
-    container.appendChild(card);
+    if (name.startsWith('marshal')) {
+      container.insertBefore(card, defaultDeviceHeader);
+    } else {
+      container.appendChild(card);
+    }
   }
 }
 
